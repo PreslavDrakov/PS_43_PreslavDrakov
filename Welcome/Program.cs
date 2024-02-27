@@ -13,6 +13,8 @@ namespace Welcome
             UserViewModel userModel = new UserViewModel(user);
             UserView userView = new UserView(userModel);
             userView.DisplayFullInfo();
+            Console.WriteLine(user.Password);
+            Console.WriteLine(BC.EnhancedVerify("1234", user.Password));
             Console.ReadKey();
         }
     }

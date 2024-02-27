@@ -16,7 +16,7 @@ namespace Welcome.Model
         public User(string name, string password, string email, int phone, UserRolesEnum role, FacultyEnum fac, int gr, int cource, int facNum)
         {
             Name = name;
-            Password = password;
+            Password = BC.EnhancedHashPassword(password, 13);
             Email = email;
             Phone = phone;
             Role = role;
