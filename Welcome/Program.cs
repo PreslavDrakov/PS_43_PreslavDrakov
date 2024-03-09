@@ -5,7 +5,7 @@ using Welcome.ViewModel;
 
 namespace Welcome
 {
-    internal class Program
+    class Program
     {
         static void Main(string[] args)
         {

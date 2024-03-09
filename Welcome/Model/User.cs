@@ -5,6 +5,7 @@ namespace Welcome.Model
     public class User
     {
         private string _password;
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Password
         {

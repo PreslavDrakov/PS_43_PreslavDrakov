@@ -42,5 +42,10 @@ namespace Welcome.View
             Console.WriteLine($"Course: {_viewModel.Course}");
             Console.WriteLine($"Faculty number: {_viewModel.FacultyNumber}");
         }
+
+        public void DisplayError()
+        {
+            throw new Exception("ERROR FROM VIEW");
+        }
     }
 }
