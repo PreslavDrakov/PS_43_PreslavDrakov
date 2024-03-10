@@ -1,4 +1,5 @@
 ﻿using Welcome.Model;
+using Welcome.Others;
 
 namespace WelcomeExtended.Data
 {
@@ -44,7 +45,29 @@ namespace WelcomeExtended.Data
         }
         public User GetUser(string name, string password)
         {
+            try
+            {
+                return _users.FirstOrDefault(u => ValidateUserLambda(name, password));
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+        public void SetActive(string name, DateTime expirationDate)
+        {
             throw new NotImplementedException();
         }
+        public void AssignUserRole(string name, UserRolesEnum role)
+        {
+            var user = _users.FirstOrDefault(u => u.Name == name);
+            if (user != null)
+            {
+                user.Role = role;
+            }
+        }
+
+
     }
 }

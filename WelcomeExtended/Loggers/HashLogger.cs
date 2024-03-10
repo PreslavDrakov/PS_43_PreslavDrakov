@@ -53,5 +53,24 @@ namespace WelcomeExtended.Loggers
             Console.ResetColor();
             _logMessages[eventId.Id] = message;
         }
+        public IReadOnlyDictionary<int, string> GetAllLogMessages()
+        {
+            return _logMessages.ToDictionary(entry => entry.Key, entry => entry.Value);
+        }
+        public void PrintEventById(int eventId)
+        {
+            if (_logMessages.TryGetValue(eventId, out string message))
+            {
+                Console.WriteLine($"Log event with EventId {eventId}: {message}");
+            }
+            else
+            {
+                Console.WriteLine($"Log event with EventId {eventId} not found.");
+            }
+        }
+        public void DeleteEventById(int eventId)
+        {
+            _logMessages.TryRemove(eventId, out _);
+        }
     }
 }
