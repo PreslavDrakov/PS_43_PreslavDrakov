@@ -5,7 +5,7 @@ namespace Welcome.Model
     public class User
     {
         private const int ShiftKey = 6; 
-        private string _password;
+        private string _password = string.Empty;
 
         public int Id { get; set; }
         public string Name { get; set; }
@@ -82,5 +82,16 @@ namespace Welcome.Model
 
             return decryptedText;
         }
+        public bool ValidatePassword(string password)
+        {
+            if (password.Equals(DecryptPassword(_password, ShiftKey)))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }   
     }
 }

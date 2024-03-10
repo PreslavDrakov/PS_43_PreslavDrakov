@@ -24,7 +24,7 @@ namespace WelcomeExtended.Data
         {
             foreach (var user in _users)
             {
-                if (user.Name == name && BC.EnhancedVerify(password, user.Password))
+                if (user.Name == name && user.ValidatePassword(password))
                 {
                     return true;
                 }
@@ -33,12 +33,12 @@ namespace WelcomeExtended.Data
         }
         public bool ValidateUserLambda(string name, string password)
         {
-            return _users.Where(x => x.Name == name && BC.EnhancedVerify(password, x.Password)).FirstOrDefault() != null ? true : false;
+            return _users.Where(x => x.Name == name && x.ValidatePassword(password)).FirstOrDefault() != null ? true : false;
         }
         public bool ValidateUserLinq(string name, string password)
         {
             var ret = from user in _users
-                      where user.Name == name && BC.EnhancedVerify(password, user.Password)
+                      where user.Name == name && user.ValidatePassword(password)
                       select user.Id;
             return ret != null ? true : false;
         }

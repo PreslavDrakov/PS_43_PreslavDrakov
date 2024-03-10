@@ -13,7 +13,7 @@ namespace Welcome
             UserViewModel userModel = new UserViewModel(user);
             UserView userView = new UserView(userModel);
             userView.DisplayFullInfo();
-            Console.WriteLine("abacd".Equals(user.Password));
+            Console.WriteLine(user.ValidatePassword("aabcd"));
             Console.WriteLine();
             Console.ReadKey();
         }
