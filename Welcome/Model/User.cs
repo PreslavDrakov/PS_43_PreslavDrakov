@@ -4,21 +4,33 @@ namespace Welcome.Model
 {
     public class User
     {
-        private const int ShiftKey = 6; 
+        private const int _ShiftKey = 6; 
         private string _password = string.Empty;
+        private int _id;
+        private DateTime _expires;
 
-        public int Id { get; set; }
+        public int Id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                _id = value;
+            }
+        }
         public string Name { get; set; }
 
         public string Password
         {
             get
             {
-                return DecryptPassword(_password, ShiftKey);
+                return DecryptPassword(_password, _ShiftKey);
             }
             set
             {
-                _password = EncryptPassword(value, ShiftKey);
+                _password = EncryptPassword(value, _ShiftKey);
             }
         }
 
@@ -29,6 +41,17 @@ namespace Welcome.Model
         public int Group { get; set; }
         public int Course { get; set; }
         public int FacultyNumber { get; set; }
+        public DateTime Expires
+        {
+            get
+            {
+                return _expires;
+            }
+            set
+            {
+                _expires = value;
+            }
+        }
 
         public User(string name, string password, string email, int phone, UserRolesEnum role, FacultyEnum fac, int gr, int cource, int facNum)
         {
@@ -84,7 +107,7 @@ namespace Welcome.Model
         }
         public bool ValidatePassword(string password)
         {
-            if (password.Equals(DecryptPassword(_password, ShiftKey)))
+            if (password.Equals(DecryptPassword(_password, _ShiftKey)))
             {
                 return true;
             }

@@ -57,7 +57,11 @@ namespace WelcomeExtended.Data
         }
         public void SetActive(string name, DateTime expirationDate)
         {
-            throw new NotImplementedException();
+            var user = _users.FirstOrDefault(u => u.Name == name);
+            if (user != null)
+            {
+                user.Expires = expirationDate;
+            }
         }
         public void AssignUserRole(string name, UserRolesEnum role)
         {
