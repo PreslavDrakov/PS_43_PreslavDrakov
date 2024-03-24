@@ -10,6 +10,11 @@ namespace Welcome.ViewModel
         {
             _user = user;
         }
+        public int Id
+        {
+            get { return _user.Id; }
+            set { _user.Id = value; }
+        }
         public string Name
         {
             get { return _user.Name; }
@@ -25,7 +30,7 @@ namespace Welcome.ViewModel
             get { return _user.Email; }
             set { _user.Email = value; }
         }
-        public int Phone
+        public string Phone
         {
             get { return _user.Phone; }
             set { _user.Phone = value; }
@@ -50,10 +55,17 @@ namespace Welcome.ViewModel
             get { return _user.Course; }
             set { _user.Course = value; }
         }
-        public int FacultyNumber
+        public string FacultyNumber
         {
             get { return _user.FacultyNumber; }
             set { _user.FacultyNumber = value; }
+        }
+        public DateTime Expires
+        {
+
+            get { return _user.Expires; }
+            set { _user.Expires = value; }
+
         }
     }
 }

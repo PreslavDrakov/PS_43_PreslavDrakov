@@ -1,60 +1,171 @@
 ﻿using Welcome.Model;
-using Welcome.Others;
-using Welcome.View;
-using Welcome.ViewModel;
 using WelcomeExtended.Data;
+using WelcomeExtended.Helpers;
 using WelcomeExtended.Others;
 
 namespace WelcomeExtended
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
+            /*
+            HashLogger logger = new HashLogger("Example 1");
+            logger.Log(LogLevel.Information, new EventId(1), "Logging information", null, (state, ex) => state.ToString());
+            logger.Log(LogLevel.Error, new EventId(2), "Logging error", null, (state, ex) => state.ToString());
+
+
+            var recordedMessages = logger.GetAllLogMessages();
+            foreach (var message in recordedMessages)
+            {
+                Console.WriteLine(message);
+            }
+
+            Console.WriteLine();
+            HashLogger logger1 = new HashLogger("Example 2");
+            logger1.Log(LogLevel.Warning, new EventId(1), "Logging Warning", null, (state, ex) => state.ToString());
+            logger1.Log(LogLevel.Error, new EventId(2), "Logging error", null, (state, ex) => state.ToString());
+
+            
+            logger1.PrintEventById(1);
+
+
+            
+            logger1.PrintEventById(2);
+
+
+            HashLogger logger2 = new HashLogger("Example");
+            logger2.Log(LogLevel.Critical, new EventId(1), "Logging critical", null, (state, ex) => state.ToString());
+            logger2.Log(LogLevel.Error, new EventId(2), "Logging error", null, (state, ex) => state.ToString());
+
+
+            bool deleted = logger2.DeleteEventById(1);
+            if (deleted)
+            {
+                Console.WriteLine("Event with ID 1 deleted successfully.");
+                var recordedMessagesAfterDeletion = logger2.GetAllLogMessages();
+                foreach (var message in recordedMessages)
+                {
+                    Console.WriteLine(message);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Event with ID 1 not found.");
+            }
+
+
+            deleted = logger2.DeleteEventById(3);
+            if (deleted)
+            {
+                Console.WriteLine("Event with ID 3 deleted successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Event with ID 3 not found.");
+            }
+
             try
             {
-                var user = new User("Preslav", "1234", "preslav@gmail.com", 0884525566, UserRolesEnum.STUDENT, FacultyEnum.FCST, 43, 3, 121221158);
+                var user = new User
+                {
+                    Name = "John Smith",
+                    Password = "password",
+                    Role = Welcome.Others.UserRolesEnum.STUDENT
+                };
                 var viewModel = new UserViewModel(user);
                 var view = new UserView(viewModel);
-                view.DisplayFullInfo();
+                view.DisplayPersonalInfo();
                 view.DisplayError();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                var log = new ActionOnError(Delegates.Log);
-                log(e.Message);
+                var log = new ActionOnError(Delegates.Log3);
+                log(ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Executed in any case!");
+            }*/
+
+            try
+            {
+                UserData userData = new UserData();
+
+                userData.AddUser(new User
+                {
+                    Name = "student",
+                    Password = "1234",
+                    Role = Welcome.Others.UserRolesEnum.STUDENT
+                });
+
+                userData.AddUser(new User
+                {
+                    Name = "student2",
+                    Password = "1234",
+                    Role = Welcome.Others.UserRolesEnum.STUDENT
+                });
+
+                userData.AddUser(new User
+                {
+                    Name = "teacher",
+                    Password = "1234",
+                    Role = Welcome.Others.UserRolesEnum.PROFESSOR
+                });
+
+                userData.AddUser(new User
+                {
+                    Name = "admin",
+                    Password = "1234",
+                    Role = Welcome.Others.UserRolesEnum.ADMIN
+                });
+
+
+                Console.Write("Enter username:");
+                string username = Console.ReadLine();
+                Console.Write("Enter password:");
+                string password = Console.ReadLine();
+
+
+                if (userData.ValidateCredentials(username, password))
+                {
+
+                    User user = userData.GetUser(username, password);
+
+                    if (user != null)
+                    {
+
+                        string logMessage = $"Successful login: {user.ToString()}";
+
+
+                        var log = new ActionOnError(Delegates.Log4);
+                        log(logMessage);
+
+                        Console.WriteLine(user.ToString());
+                    }
+                    else
+                    {
+
+                        string logMessage = $"Unsuccessful login: {username}, {password}";
+
+
+                        var log = new ActionOnError(Delegates.Log5);
+                        log(logMessage);
+
+                        Console.WriteLine("Error: User details not found.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                var log = new ActionOnError(Delegates.Log4);
+                log(ex.Message);
             }
             finally
             {
                 Console.WriteLine("Executed in any case!");
             }
-            UserData userData = new UserData();
-            User studentUser = new User("Preslav", "1234", "preslav@gmail.com", 0884525566, UserRolesEnum.STUDENT, FacultyEnum.FCST, 43, 3, 121221158);
-            User studentUser2 = new User("Angel", "1234", "student@gmail.com", 0787958, UserRolesEnum.STUDENT, FacultyEnum.FCST, 43, 3, 121221038);
-            User teacherUser = new User("Ivo", "1234", "teacher@gmail.com", 036985214, UserRolesEnum.PROFESSOR, FacultyEnum.FCST, 43, 3, 121221158);
-            User adminUser = new User("Admin", "1234", "admin@gmail.com", 085858585, UserRolesEnum.ADMIN, FacultyEnum.FCST, 43, 3, 121221158);
-            userData.AddUser(studentUser);
-            userData.AddUser(studentUser2);
-            userData.AddUser(teacherUser);
-            userData.AddUser(adminUser);
-            Console.WriteLine("Enter your name:");
-            string name = Console.ReadLine();
 
-            Console.WriteLine("Enter your password:");
-            string password = Console.ReadLine();
-
-            // Проверка дали потребителят съществува и извеждане на информацията за него
-            if (userData.ValidateUserLambda(name, password))
-            {
-                User user = userData.GetUser(name, password);
-                UserViewModel userModel = new UserViewModel(user);
-                UserView userView = new UserView(userModel);
-                userView.DisplayFullInfo();
-            }
-            else
-            {
-                Console.WriteLine("User not found.");
-            }
         }
     }
 }

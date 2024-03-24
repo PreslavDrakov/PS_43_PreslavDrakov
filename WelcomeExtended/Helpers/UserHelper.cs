@@ -15,38 +15,17 @@ namespace WelcomeExtended.Helpers
         {
             return $"User: {user.Name}, Role: {user.Role}\n";
         }
-        public static bool ValidateCredentials(UserData user, string name, string password)
+        public static bool ValidateCredentials(this UserData userData, string name, string password)
         {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(name))
-                {
-                    throw new ArgumentException("The name cannot be empty.", nameof(name));
-                }
-
-                if (string.IsNullOrWhiteSpace(password))
-                {
-                    throw new ArgumentException("The password cannot be empty.", nameof(password));
-                }
-
-                return user.ValidateUser(name, password);
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine("Validation error: " + ex.Message);
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(password))
                 return false;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("An error occurred: " + ex.Message);
-                return false;
-            }
+
+            return userData.ValidateUserLinq(name, password);
         }
 
-
-        public static User GetUser(this User user, string name, string password)
+        public static User GetUser(this UserData userData, string name, string password)
         {
-            return user.GetUser(name, password);
+            return userData.GetUser(name, password);
         }
     }
 }

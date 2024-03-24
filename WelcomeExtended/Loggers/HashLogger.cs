@@ -59,7 +59,7 @@ namespace WelcomeExtended.Loggers
         }
         public void PrintEventById(int eventId)
         {
-            if (_logMessages.TryGetValue(eventId, out string message))
+            if (_logMessages.TryGetValue(eventId, out var message))
             {
                 Console.WriteLine($"Log event with EventId {eventId}: {message}");
             }
@@ -68,9 +68,9 @@ namespace WelcomeExtended.Loggers
                 Console.WriteLine($"Log event with EventId {eventId} not found.");
             }
         }
-        public void DeleteEventById(int eventId)
+        public bool DeleteEventById(int eventId)
         {
-            _logMessages.TryRemove(eventId, out _);
+            return _logMessages.TryRemove(eventId, out _);
         }
     }
 }

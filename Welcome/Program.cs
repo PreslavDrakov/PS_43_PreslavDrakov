@@ -9,11 +9,24 @@ namespace Welcome
     {
         static void Main(string[] args)
         {
-            User user = new User("Preslav", "abcd", "preslav@gmail.com", 0884525566, UserRolesEnum.STUDENT, FacultyEnum.FCST, 43, 3, 121221158);
+            User user = new User 
+            { 
+                Id =1,
+                Name = "Preslav",
+                Password = "password",
+                Email = "pdrakov@tu-sofia.bg",
+                Phone = "0889988990",
+                Role = UserRolesEnum.STUDENT,
+                Faculty = FacultyEnum.FCST,
+                Group = 43,
+                Course = 3,
+                FacultyNumber = "121221158",
+                Expires = DateTime.Now.AddYears(5)
+            };
             UserViewModel userModel = new UserViewModel(user);
             UserView userView = new UserView(userModel);
             userView.DisplayFullInfo();
-            Console.WriteLine(user.ValidatePassword("aabcd"));
+            //Console.WriteLine(user.ValidatePassword("aabcd"));
             Console.WriteLine();
             Console.ReadKey();
         }
