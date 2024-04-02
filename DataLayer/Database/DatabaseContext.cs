@@ -32,6 +32,36 @@ namespace DataLayer.Database
                 Expires = DateTime.Now.AddYears(10)
             };
             modelBuilder.Entity<DatabaseUser>().HasData(user);
+            var user2 = new DatabaseUser()
+            {
+                Id = 2,
+                Name = "Gosho",
+                Password = "1234",
+                Email = "admin@email.com",
+                Phone = "123123",
+                Faculty = FacultyEnum.FCST,
+                Role = UserRolesEnum.STUDENT,
+                Group = 43,
+                Course = 4,
+                FacultyNumber = "123123",
+                Expires = DateTime.Now.AddYears(10)
+            };
+            modelBuilder.Entity<DatabaseUser>().HasData(user2);
+            var user3 = new DatabaseUser()
+            {
+                Id = 3,
+                Name = "Pesho",
+                Password = "1234",
+                Email = "admin@email.com",
+                Phone = "123123",
+                Faculty = FacultyEnum.FCST,
+                Role = UserRolesEnum.STUDENT,
+                Group = 43,
+                Course = 4,
+                FacultyNumber = "123123",
+                Expires = DateTime.Now.AddYears(10)
+            };
+            modelBuilder.Entity<DatabaseUser>().HasData(user3);
         }
         public DbSet<DatabaseUser> Users { get; set; }
         
