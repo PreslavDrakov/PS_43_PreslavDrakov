@@ -10,6 +10,7 @@ namespace UI.Components
     {
         public StudentsList()
         {
+            InitializeComponent();
             using (var context = new DatabaseContext())
             {
                 var records = context.Users.ToList();

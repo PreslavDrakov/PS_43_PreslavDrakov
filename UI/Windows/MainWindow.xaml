@@ -9,6 +9,6 @@
         Title="List of all students" Height="450" Width="800"
         WindowStartupLocation="CenterScreen">
     <Grid>
-        <local2:StudentsList x:Name="studentsList" Padding="2" />
+        <local2:StudentsList x:Name="students" Padding="2" />
     </Grid>
 </Window>
