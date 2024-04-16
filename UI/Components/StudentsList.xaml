@@ -4,15 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UI.Components"
+             xmlns:extras="clr-namespace:UI.Extras"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <extras:PasswordConverter x:Key="PasswordConverter"/>
+    </UserControl.Resources>
     <Grid>
-        <DataGrid Name="students" ItemsSource="{Binding}" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="#" IsReadOnly="True" Binding="{Binding Id}" />
-                <DataGridTextColumn Header="Name" IsReadOnly="True" Binding="{Binding Name}" />
-                <DataGridTextColumn Header="Email" IsReadOnly="True" Binding="{Binding Email}" />
-            </DataGrid.Columns>
-        </DataGrid>
+        <StackPanel>
+                <DataGrid Name="students" ItemsSource="{Binding}" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="#" IsReadOnly="True" Binding="{Binding Id}" />
+                        <DataGridTextColumn Header="Name" IsReadOnly="True" Binding="{Binding Name}" />
+                        <DataGridTextColumn Header="Email" IsReadOnly="True" Binding="{Binding Email}" />
+                        <DataGridTextColumn Header="Password" IsReadOnly="True" Binding="{Binding Password, Converter={StaticResource PasswordConverter}, ConverterParameter=Password}"/>
+                        <DataGridTextColumn Header="Role" IsReadOnly="True" Binding="{Binding Role}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            <ListBox ItemsSource="{Binding Events}" DisplayMemberPath="Date" MouseDoubleClick="LoggerDoubleClick"/>
+        </StackPanel>
     </Grid>
 </UserControl>
